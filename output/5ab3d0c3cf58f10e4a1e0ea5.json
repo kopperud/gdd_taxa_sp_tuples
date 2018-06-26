@@ -1,0 +1,1125 @@
+[
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Holocene"
+            ],
+            "idx": [
+                7
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea"
+            ],
+            "idx": [
+                10
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                7,
+                9,
+                5,
+                11,
+                10
+            ],
+            "words": [
+                "Holocene",
+                "71",
+                "from",
+                "-LRB-",
+                "Exidmonea"
+            ]
+        },
+        "sentence": [
+            "Location",
+            "map",
+            "Fossil",
+            "Cyclostome",
+            "Bryozoans",
+            "from",
+            "the",
+            "Holocene",
+            "Rocks",
+            "71",
+            "Exidmonea",
+            "-LRB-",
+            "?",
+            "-RRB-"
+        ],
+        "sentid": 38
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Miocene"
+            ],
+            "idx": [
+                32
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea",
+                "atlantica"
+            ],
+            "idx": [
+                6,
+                7
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                7,
+                8,
+                9,
+                5,
+                20,
+                33,
+                32
+            ],
+            "words": [
+                "atlantica",
+                "auct.is",
+                "a",
+                "that",
+                "by",
+                "-LRB-",
+                "Miocene"
+            ]
+        },
+        "sentence": [
+            "Further",
+            "they",
+            "have",
+            "also",
+            "remarked",
+            "that",
+            "Exidmonea",
+            "atlantica",
+            "auct.is",
+            "a",
+            "different",
+            "species",
+            "which",
+            "lacks",
+            "dorsal",
+            "kenozooids",
+            "and",
+            "the",
+            "material",
+            "listed",
+            "by",
+            "David",
+            ",",
+            "Mongerau",
+            "and",
+            "Pouyet",
+            ",",
+            "-LRB-",
+            "1972",
+            "-RRB-",
+            "from",
+            "the",
+            "Miocene",
+            "-LRB-",
+            "Burdigalian",
+            "-RRB-",
+            "of",
+            "the",
+            "Rhone",
+            "Basin",
+            "as",
+            "`",
+            "Exidmonea",
+            "atlantica",
+            "Auct",
+            ".",
+            "'"
+        ],
+        "sentid": 47
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Burdigalian"
+            ],
+            "idx": [
+                34
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea",
+                "atlantica"
+            ],
+            "idx": [
+                6,
+                7
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                7,
+                8,
+                9,
+                5,
+                20,
+                33,
+                35,
+                34
+            ],
+            "words": [
+                "atlantica",
+                "auct.is",
+                "a",
+                "that",
+                "by",
+                "-LRB-",
+                "-RRB-",
+                "Burdigalian"
+            ]
+        },
+        "sentence": [
+            "Further",
+            "they",
+            "have",
+            "also",
+            "remarked",
+            "that",
+            "Exidmonea",
+            "atlantica",
+            "auct.is",
+            "a",
+            "different",
+            "species",
+            "which",
+            "lacks",
+            "dorsal",
+            "kenozooids",
+            "and",
+            "the",
+            "material",
+            "listed",
+            "by",
+            "David",
+            ",",
+            "Mongerau",
+            "and",
+            "Pouyet",
+            ",",
+            "-LRB-",
+            "1972",
+            "-RRB-",
+            "from",
+            "the",
+            "Miocene",
+            "-LRB-",
+            "Burdigalian",
+            "-RRB-",
+            "of",
+            "the",
+            "Rhone",
+            "Basin",
+            "as",
+            "`",
+            "Exidmonea",
+            "atlantica",
+            "Auct",
+            ".",
+            "'"
+        ],
+        "sentid": 47
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Miocene"
+            ],
+            "idx": [
+                32
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea",
+                "atlantica"
+            ],
+            "idx": [
+                42,
+                43
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                32,
+                33,
+                20,
+                45,
+                42
+            ],
+            "words": [
+                "Miocene",
+                "-LRB-",
+                "by",
+                ".",
+                "Exidmonea"
+            ]
+        },
+        "sentence": [
+            "Further",
+            "they",
+            "have",
+            "also",
+            "remarked",
+            "that",
+            "Exidmonea",
+            "atlantica",
+            "auct.is",
+            "a",
+            "different",
+            "species",
+            "which",
+            "lacks",
+            "dorsal",
+            "kenozooids",
+            "and",
+            "the",
+            "material",
+            "listed",
+            "by",
+            "David",
+            ",",
+            "Mongerau",
+            "and",
+            "Pouyet",
+            ",",
+            "-LRB-",
+            "1972",
+            "-RRB-",
+            "from",
+            "the",
+            "Miocene",
+            "-LRB-",
+            "Burdigalian",
+            "-RRB-",
+            "of",
+            "the",
+            "Rhone",
+            "Basin",
+            "as",
+            "`",
+            "Exidmonea",
+            "atlantica",
+            "Auct",
+            ".",
+            "'"
+        ],
+        "sentid": 47
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Burdigalian"
+            ],
+            "idx": [
+                34
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea",
+                "atlantica"
+            ],
+            "idx": [
+                42,
+                43
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                34,
+                35,
+                33,
+                20,
+                45,
+                42
+            ],
+            "words": [
+                "Burdigalian",
+                "-RRB-",
+                "-LRB-",
+                "by",
+                ".",
+                "Exidmonea"
+            ]
+        },
+        "sentence": [
+            "Further",
+            "they",
+            "have",
+            "also",
+            "remarked",
+            "that",
+            "Exidmonea",
+            "atlantica",
+            "auct.is",
+            "a",
+            "different",
+            "species",
+            "which",
+            "lacks",
+            "dorsal",
+            "kenozooids",
+            "and",
+            "the",
+            "material",
+            "listed",
+            "by",
+            "David",
+            ",",
+            "Mongerau",
+            "and",
+            "Pouyet",
+            ",",
+            "-LRB-",
+            "1972",
+            "-RRB-",
+            "from",
+            "the",
+            "Miocene",
+            "-LRB-",
+            "Burdigalian",
+            "-RRB-",
+            "of",
+            "the",
+            "Rhone",
+            "Basin",
+            "as",
+            "`",
+            "Exidmonea",
+            "atlantica",
+            "Auct",
+            ".",
+            "'"
+        ],
+        "sentid": 47
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Cretaceous"
+            ],
+            "idx": [
+                6
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Mecynoecia",
+                "proboscidea"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                2,
+                3,
+                7,
+                6
+            ],
+            "words": [
+                "proboscidea",
+                "ranges",
+                "in",
+                "to",
+                "Cretaceous"
+            ]
+        },
+        "sentence": [
+            "Mecynoecia",
+            "proboscidea",
+            "ranges",
+            "in",
+            "age",
+            "from",
+            "Cretaceous",
+            "to",
+            "Recent",
+            ",",
+            "with",
+            "Cenozoic",
+            "fossil",
+            "occurrences",
+            "from",
+            "Italy",
+            ",",
+            "Hungary",
+            ",",
+            "France",
+            ",",
+            "North",
+            "Africa",
+            ",",
+            "Arabia",
+            ",",
+            "Crete",
+            ",",
+            "Sicily",
+            "other",
+            "places",
+            "-LRB-",
+            "Dr.",
+            "Phil",
+            "Bock",
+            "pers",
+            "."
+        ],
+        "sentid": 104
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Recent"
+            ],
+            "idx": [
+                8
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Mecynoecia",
+                "proboscidea"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                2,
+                3,
+                7,
+                9,
+                8
+            ],
+            "words": [
+                "proboscidea",
+                "ranges",
+                "in",
+                "to",
+                ",",
+                "Recent"
+            ]
+        },
+        "sentence": [
+            "Mecynoecia",
+            "proboscidea",
+            "ranges",
+            "in",
+            "age",
+            "from",
+            "Cretaceous",
+            "to",
+            "Recent",
+            ",",
+            "with",
+            "Cenozoic",
+            "fossil",
+            "occurrences",
+            "from",
+            "Italy",
+            ",",
+            "Hungary",
+            ",",
+            "France",
+            ",",
+            "North",
+            "Africa",
+            ",",
+            "Arabia",
+            ",",
+            "Crete",
+            ",",
+            "Sicily",
+            "other",
+            "places",
+            "-LRB-",
+            "Dr.",
+            "Phil",
+            "Bock",
+            "pers",
+            "."
+        ],
+        "sentid": 104
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Cenozoic"
+            ],
+            "idx": [
+                11
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Mecynoecia",
+                "proboscidea"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                2,
+                3,
+                14,
+                11
+            ],
+            "words": [
+                "proboscidea",
+                "ranges",
+                "in",
+                "from",
+                "Cenozoic"
+            ]
+        },
+        "sentence": [
+            "Mecynoecia",
+            "proboscidea",
+            "ranges",
+            "in",
+            "age",
+            "from",
+            "Cretaceous",
+            "to",
+            "Recent",
+            ",",
+            "with",
+            "Cenozoic",
+            "fossil",
+            "occurrences",
+            "from",
+            "Italy",
+            ",",
+            "Hungary",
+            ",",
+            "France",
+            ",",
+            "North",
+            "Africa",
+            ",",
+            "Arabia",
+            ",",
+            "Crete",
+            ",",
+            "Sicily",
+            "other",
+            "places",
+            "-LRB-",
+            "Dr.",
+            "Phil",
+            "Bock",
+            "pers",
+            "."
+        ],
+        "sentid": 104
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Neogene"
+            ],
+            "idx": [
+                9
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Crisia",
+                "elongata"
+            ],
+            "idx": [
+                6,
+                7
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                7,
+                8,
+                6,
+                10,
+                9
+            ],
+            "words": [
+                "elongata",
+                "from",
+                "Crisia",
+                "of",
+                "Neogene"
+            ]
+        },
+        "sentence": [
+            "Taylor",
+            "-LRB-",
+            "2001",
+            "-RRB-",
+            "provisionally",
+            "identified",
+            "Crisia",
+            "elongata",
+            "from",
+            "Neogene",
+            "of",
+            "Panama",
+            "Central",
+            "American",
+            "isthmus",
+            "under",
+            "the",
+            "of",
+            "the",
+            "Panama",
+            "Paleontology",
+            "Project",
+            "."
+        ],
+        "sentid": 155
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Pliocene"
+            ],
+            "idx": [
+                19
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Crisia",
+                "sp."
+            ],
+            "idx": [
+                5,
+                6
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                6,
+                7,
+                4,
+                23,
+                19
+            ],
+            "words": [
+                "sp.",
+                "by",
+                "under",
+                "circular",
+                "Pliocene"
+            ]
+        },
+        "sentence": [
+            "A",
+            "solitary",
+            "internode",
+            "described",
+            "under",
+            "Crisia",
+            "sp.",
+            "by",
+            "Taylor",
+            "and",
+            "Foster",
+            "-LRB-",
+            "1998",
+            "-RRB-",
+            "from",
+            "Bowden",
+            "shell",
+            "bed",
+            ",",
+            "Pliocene",
+            "of",
+            "Jamaica",
+            "has",
+            "circular",
+            "pseudopores",
+            "."
+        ],
+        "sentid": 176
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Miocene"
+            ],
+            "idx": [
+                16
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Crisia",
+                "tenuis"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                2,
+                5,
+                6,
+                11,
+                17,
+                16
+            ],
+            "words": [
+                "tenuis",
+                "MacGillivray",
+                "recorded",
+                "from",
+                ",",
+                "of",
+                "Miocene"
+            ]
+        },
+        "sentence": [
+            "Crisia",
+            "tenuis",
+            "MacGillivray",
+            ",",
+            "1879",
+            "recorded",
+            "from",
+            "the",
+            "Port",
+            "Phillip",
+            "area",
+            ",",
+            "and",
+            "also",
+            "from",
+            "the",
+            "Miocene",
+            "of",
+            "Muddy",
+            "Creek",
+            ",",
+            "Victoria",
+            ",",
+            "Australia",
+            "exhibits",
+            "circular",
+            "to",
+            "oval",
+            "pseudopores",
+            "on",
+            "the",
+            "zooids",
+            "and",
+            "distinctly",
+            "slit",
+            "like",
+            "pseudopores",
+            "on",
+            "the",
+            "ovicell",
+            "."
+        ],
+        "sentid": 182
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Recent"
+            ],
+            "idx": [
+                9
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Crisia",
+                "acropora"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                3,
+                5,
+                7,
+                10,
+                9
+            ],
+            "words": [
+                "acropora",
+                ",",
+                "is",
+                "from",
+                "and",
+                "Recent"
+            ]
+        },
+        "sentence": [
+            "Crisia",
+            "acropora",
+            "Busk",
+            ",",
+            "1852",
+            "is",
+            "recorded",
+            "from",
+            "the",
+            "Recent",
+            "and",
+            "Tertiary",
+            "of",
+            "Australia",
+            "bears",
+            "circular",
+            "pseudopores",
+            "both",
+            "on",
+            "zooids",
+            "and",
+            "ovicell",
+            "."
+        ],
+        "sentid": 183
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Tertiary"
+            ],
+            "idx": [
+                11
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Crisia",
+                "acropora"
+            ],
+            "idx": [
+                0,
+                1
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                1,
+                3,
+                5,
+                7,
+                10,
+                11
+            ],
+            "words": [
+                "acropora",
+                ",",
+                "is",
+                "from",
+                "and",
+                "Tertiary"
+            ]
+        },
+        "sentence": [
+            "Crisia",
+            "acropora",
+            "Busk",
+            ",",
+            "1852",
+            "is",
+            "recorded",
+            "from",
+            "the",
+            "Recent",
+            "and",
+            "Tertiary",
+            "of",
+            "Australia",
+            "bears",
+            "circular",
+            "pseudopores",
+            "both",
+            "on",
+            "zooids",
+            "and",
+            "ovicell",
+            "."
+        ],
+        "sentid": 183
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Upper",
+                "Cretaceous"
+            ],
+            "idx": [
+                22,
+                23
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea"
+            ],
+            "idx": [
+                7
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                7,
+                8,
+                24,
+                13,
+                16,
+                23,
+                22
+            ],
+            "words": [
+                "Exidmonea",
+                ",",
+                ".",
+                "of",
+                "-LRB-",
+                "Cretaceous",
+                "Upper"
+            ]
+        },
+        "sentence": [
+            "Taxanomic",
+            "status",
+            "of",
+            "the",
+            "cyclostomes",
+            "bryozoans",
+            "genus",
+            "Exidmonea",
+            ",",
+            "with",
+            "with",
+            "a",
+            "redescription",
+            "of",
+            "E.",
+            "dorsata",
+            "-LRB-",
+            "von",
+            "Hagenow",
+            "-RRB-",
+            "from",
+            "the",
+            "Upper",
+            "Cretaceous",
+            "."
+        ],
+        "sentid": 373
+    },
+    {
+        "INTERVALNAME": {
+            "INTERVALNAME": [
+                "Upper",
+                "Cretaceous"
+            ],
+            "idx": [
+                22,
+                23
+            ]
+        },
+        "TAXA": {
+            "TAXA": [
+                "Exidmonea",
+                "dorsata"
+            ],
+            "idx": [
+                14,
+                15
+            ]
+        },
+        "gddid": "5ab3d0c3cf58f10e4a1e0ea5",
+        "sdp": {
+            "idx": [
+                15,
+                16,
+                23,
+                22
+            ],
+            "words": [
+                "dorsata",
+                "-LRB-",
+                "Cretaceous",
+                "Upper"
+            ]
+        },
+        "sentence": [
+            "Taxanomic",
+            "status",
+            "of",
+            "the",
+            "cyclostomes",
+            "bryozoans",
+            "genus",
+            "Exidmonea",
+            ",",
+            "with",
+            "with",
+            "a",
+            "redescription",
+            "of",
+            "E.",
+            "dorsata",
+            "-LRB-",
+            "von",
+            "Hagenow",
+            "-RRB-",
+            "from",
+            "the",
+            "Upper",
+            "Cretaceous",
+            "."
+        ],
+        "sentid": 373
+    }
+]
