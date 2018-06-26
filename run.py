@@ -11,7 +11,7 @@ fpaths = glob.glob("data/*.tsv")
 
 header = ["docid", "sentid", "wordidx", "word", "poses", "ners", "lemmas", "dep_paths", "dep_parents"]
 
-for fpath in tqdm.tqdm_notebook(fpaths):
+for fpath in tqdm.tqdm(fpaths):
 
     df = pd.read_csv(fpath, header=None, names = header, sep ="\t")
 
