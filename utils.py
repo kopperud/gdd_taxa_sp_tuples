@@ -6,6 +6,7 @@ import itertools
 import numpy as np
 import networkx as nx
 import json
+import ntpath
 
 #pattern = re.compile(',\s*(?=([^\"]*"[^\"]*\")*[^\"]*$)')
 
@@ -36,6 +37,23 @@ def feature_to_list(s, key):
         res = s
         
     return(res)
+
+def sentence_to_dict(i, sentence, fpath):
+    row = dict()
+    dep = sorted(sentence["basicDependencies"], key = lambda x: x["dependent"])
+    
+    row["dep_paths"] = [x["dep"] for x in dep]
+    row["dep_parents"] = [x["governor"] for x in dep]
+    row["word"] = [x["word"] for x in sentence["tokens"]]
+    row["ners"] = [x["ner"] for x in sentence["tokens"]]
+    row["poses"] = [x["pos"] for x in sentence["tokens"]]
+    row["wordidx"] = [x["index"] for x in sentence["tokens"]]
+    row["lemmas"] = [x["lemma"] for x in sentence["tokens"]]
+
+    row["docid"] = ntpath.basename(fpath)
+    row["sentid"] = i+1
+    
+    return(row)
 
 def index_to_tokens(x, row):
     start = x[0]
@@ -74,13 +92,13 @@ class smart_dict(dict):
     def __missing__(self, key):
         return(key)
 
-def obtain_candidates(df):
+def obtain_candidates(df, span = "INTERVALNAME"):
     candidates = []
     
     for i, row in df.iterrows():
-        if len({"TAXA", "INTERVALNAME"}.intersection(set(row["ners"]))) > 1:
+        if len({"TAXA", span}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
             taxa = tokens_nonconsecutive_ner(row["word"], row["ners"], "TAXA")
-            intervals = tokens_nonconsecutive_ner(row["word"], row["ners"], "INTERVALNAME")
+            intervals = tokens_nonconsecutive_ner(row["word"], row["ners"], span)
 
             #Deabbreviate genus names
             is_taxa = np.array(row["ners"]) == "TAXA"
@@ -101,9 +119,11 @@ def obtain_candidates(df):
             G = nx.Graph()
 
             dep = row["dep_parents"]
-            nodes = [x+1 for x in range(len(dep))]
+#            nodes = [x+1 for x in range(len(dep))]
+            nodes = row["wordidx"]
             parents = [int(x) for x in dep]
-            edges = zip(parents, nodes)
+#            edges = zip(parents, nodes)
+            edges = zip(nodes, parents)
 
             G.add_edges_from(edges)
 
@@ -113,14 +133,14 @@ def obtain_candidates(df):
                 a, b = sorted([p[0], p[1]], key = lambda x: x["idx"])
                 
                 try:
-                    sdp["idx"] = nx.shortest_path(G, a["idx"][-1], b["idx"][0])
+                    sdp["idx"] = nx.shortest_path(G, a["idx"][-1]+1, b["idx"][0]+1)
                 except:
                     print(row["docid"])
                     print(row["sentid"])
                     #break
                     raise Exception("Could not compute SPD")
                     
-                sdp["words"] = [row["word"][i] for i in sdp["idx"]]
+                sdp["words"] = [row["word"][i-1] for i in sdp["idx"]]
 
                 ## Compute SPD for each
                 candidate = dict()
@@ -128,10 +148,10 @@ def obtain_candidates(df):
                 candidate["sdp"] = sdp
 
                 candidate["TAXA"] = p[0]
-                candidate["INTERVALNAME"] = p[1]
+                candidate[span] = p[1]
                 candidate["sentid"] = int(i)
                 candidate["sentence"] = row["word"]
-                candidate["gddid"] = row["docid"]
+                candidate["docid"] = row["docid"].replace(".json", "")
 
                 candidates.append(candidate)
 
