@@ -159,8 +159,9 @@ def obtain_candidates(df, span = "INTERVALNAME"):
 
 def replace_abbrev(abbrev, df, index, count):
     previous_words = df.iloc[index]["word"]
-    
-    genus_toks = [x for x in previous_words if x.startswith(abbrev[0]) and len(x) > 2]
+    prev_ner = df.iloc[index]["ners"]    
+
+    genus_toks = [x for i, x in enumerate(previous_words) if x.startswith(abbrev[0]) and len(x) > 2 and prev_ner[i] == "TAXA"]
     
     if genus_toks:
         replacement = genus_toks[-1]
