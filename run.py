@@ -5,7 +5,7 @@ import json
 
 fpaths = glob.glob("data/nlp390_bryozoa/*")
 fpaths = glob.glob("data/*.tsv")
-fpaths = glob.glob("/home/storage/corenlp_wrapper/output/*/*.json")
+#fpaths = glob.glob("/home/storage/corenlp_wrapper/output/*/*.json")
 
 
 ## Read the csv files

@@ -33,6 +33,9 @@ def feature_to_list(s, key):
         s = s.replace("{","").replace("}","")
         s = "[" + s + "]"
         res = eval(s)
+
+        if key == "wordidx":
+            res = [int(x) for x in res]
     else:
         res = s
         
@@ -134,10 +137,11 @@ def obtain_candidates(df, span = "INTERVALNAME"):
                 
                 try:
                     sdp["idx"] = nx.shortest_path(G, a["idx"][-1]+1, b["idx"][0]+1)
+                    #sdp["idx"] = nx.shortest_path(G, a["idx"][-1], b["idx"][0])
                 except:
                     print(row["docid"])
                     print(row["sentid"])
-                    #break
+
                     raise Exception("Could not compute SPD")
                     
                 sdp["words"] = [row["word"][i-1] for i in sdp["idx"]]
