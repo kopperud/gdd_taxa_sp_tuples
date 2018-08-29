@@ -166,12 +166,12 @@ def replace_abbrev(abbrev, df, index, count):
     prev_ner = df.iloc[index]["ners"]    
 
     genus_toks = [x for i, x in enumerate(previous_words) if x.startswith(abbrev[0]) and len(x) > 2 and prev_ner[i] == "TAXA"]
-    
+
     if genus_toks:
         replacement = genus_toks[-1]
     else:
         if int(count) > 0:
-            replacement = replace_abbrev(abbrev, df, index, count -1)
+            replacement = replace_abbrev(abbrev, df, index-1, count -1)
         else:
             replacement = abbrev
     return(replacement)
