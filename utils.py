@@ -13,20 +13,7 @@ import ntpath
 
 # In[801]:
 
-
-const1 = "ENT10812879a"
-const2 = '","'
-
-def feature_to_list_postgres(s, key):
-    if k not in {"sentid", "docid"}:
-        s = s.replace("{","").replace("}","")
-        s = s.replace(const2, const1)
-        s = s.split(",")
-        res = ["," if x == const1 else x for x in s]
-    else:
-        res = s
-        
-    return(res)    
+header = ["docid", "sentid", "wordidx", "word", "poses", "ners", "lemmas", "dep_paths", "dep_parents"]
 
 def feature_to_list(s, key):
     if key not in {"sentid", "docid"}:
@@ -95,7 +82,53 @@ class smart_dict(dict):
     def __missing__(self, key):
         return(key)
 
-def obtain_candidates(df, span = "INTERVALNAME"):
+def obtain_candidates(fpath, span = "INTERVALNAME", archive = True):
+    if ".json" in fpath:  
+        l = []
+
+        with open(fpath, "r") as f:
+            raw = f.read()
+            if not raw or "java.util" in raw:
+                return(None)
+            else:
+                s = json.loads(raw)
+        if not s:
+            return(None)
+        sentences = s[0]["sentences"]
+	
+
+        for i, sentence in enumerate(sentences):
+            l.append(sentence_to_dict(i, sentence, fpath))
+
+        df = pd.DataFrame(l)
+
+    else:
+        df = pd.read_csv(fpath, header=None, names = header, sep ="\t")
+
+        for k, v in df.iteritems():
+            df[k] = [feature_to_list(x, k) for x in v]
+
+    candidates = parse_candidate(df, span = span)
+
+    ## Establish document ID. Specific for each source, not for GDD
+    if candidates:
+        if ".json" in fpath:
+            # if berning
+            docid = ntpath.basename(fpath.replace(".json",""))
+            # if archive
+            #docid = fpath.split("/")[-2]
+            # Assign document ids
+
+            for item in candidates:
+                item["docid"] = docid
+
+        return(candidates)
+    else:
+        return(None)
+
+
+
+def parse_candidate(df, span = "INTERVALNAME"):
     candidates = []
     
     for i, row in df.iterrows():
