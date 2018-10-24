@@ -12,8 +12,8 @@ from functools import partial
 #fpaths = glob.glob("data/tmp_parse.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/lidgaard/**/*.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/v2/de/lidgaard/**/*.json")
-#fpaths = glob.glob("/home/storage/corenlp_parse/v2/en/berning/*.json")
-fpaths = glob.glob("data/berning/*.json")
+fpaths = glob.glob("/home/storage/corenlp_parse/v2/en/lidgaard/**/*.json")
+#fpaths = glob.glob("data/berning/*.json")
 
 n_threads = 32
 source = "lidgaard"
@@ -23,25 +23,16 @@ with multiprocessing.Pool(n_threads) as p:
             span0 = "TAXA",  # 0-th is for "TAXA"
             span1 = "INTERVALNAME", 
             source = source)
-    docs = p.map(foo, fpaths)
+    docs = list(tqdm.tqdm(p.imap(foo, fpaths), total = len(fpaths)))
 
 ## Remove "None" entries
 docs = list(filter(None.__ne__, docs))
 
 ## flatten list
-candidates = []
-abbreviations = []
-for sublist in docs:
-    for item in sublist["candidates"]:
-        candidates.append(item)
-    for item in sublist["abbreviations"]:
-        abbreviations.append(item)
-#candidates = [item for sublist in docs for item in sublist]
-res = {"candidates": candidates,
-        "abbreviations": abbreviations}
+candidates = [item for sublist in docs for item in sublist]
 
 ## Write output
 with open("output/candidates.json", "w") as f:
-    json.dump(res, f, indent=4, sort_keys=True)
+    json.dump(candidates, f, indent=4, sort_keys=True)
 
 
