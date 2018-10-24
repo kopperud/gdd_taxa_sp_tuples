@@ -108,7 +108,9 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
         for k, v in df.iteritems():
             df[k] = [feature_to_list(x, k) for x in v]
 
-    candidates = parse_candidate(df, span0 = span0, span1 = span1)
+    res = parse_candidate(df, span0 = span0, span1 = span1)
+    candidates = res["candidates"]
+    abbreviations = res["abbreviations"]
 
     ## Establish document ID. Specific for each source, not for GDD
     if candidates:
@@ -127,7 +129,7 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
             for item in candidates:
                 item["docid"] = docid
 
-        return(candidates)
+        return(res)
     else:
         return(None)
 
@@ -135,6 +137,7 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
 
 def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
     candidates = []
+    abbreviations = []
     
     for i, row in df.iterrows():
         if len({span0, span1}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
@@ -153,10 +156,12 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                     for abbrev in abbrevs:
                         d[abbrev] = replace_abbrev(abbrev, df, i, 8)
                     
+                    abbreviations.append(d) 
+
                     for entity in taxa:
                         for k, v in d.items():
                             entity[span0] = [v if x == k else x for x in entity[span0]]
-            
+
             ## set up dependency tree in networkx
             G = nx.Graph()
 
@@ -197,8 +202,9 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 candidate["docid"] = row["docid"].replace(".json", "")
 
                 candidates.append(candidate)
-
-    return(candidates)
+    res = {"candidates": candidates,
+           "abbreviations": abbreviations}
+    return(res)
 
 def replace_abbrev(abbrev, df, index, count):
     previous_words = df.iloc[index]["word"]
