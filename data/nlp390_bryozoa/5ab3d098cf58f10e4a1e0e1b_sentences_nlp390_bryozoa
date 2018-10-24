@@ -1,2 +1,0 @@
-5ab3d098cf58f10e4a1e0e1b	1	{1,2,3}	{-LSB-,2004,.}	{-LRB-,CD,.}	{O,DATE,O}	{-lsb-,2004,.}	{punct,"",punct}	{2,0,2}
-5ab3d098cf58f10e4a1e0e1b	2	{1,2,3,4}	{191,pp,.,-RSB-}	{CD,NN,.,-RRB-}	{NUMBER,O,O,O}	{191,pp,.,-rsb-}	{nummod,"",punct,dep}	{2,0,2,2}

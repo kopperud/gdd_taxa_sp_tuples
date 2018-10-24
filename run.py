@@ -3,19 +3,26 @@ from utils import *
 import tqdm
 import multiprocessing
 import json
+from functools import partial
 
-fpaths = glob.glob("/home/storage/corenlp_wrapper/output/*/*.json")[:]
+#fpaths = glob.glob("/home/storage/corenlp_wrapper/output/*/*.json")[:]
 #fpaths = glob.glob("/uio/kant/nhm-sfs-u2/bjorntko/TDM Project/duct_tape/data_berning/output/*.json")
-fpaths = glob.glob("/uio/kant/nhm-sfs-u2/bjorntko/TDM Project/duct_tape/data_berning/contents/*.json")
+#fpaths = glob.glob("/uio/kant/nhm-sfs-u2/bjorntko/TDM Project/duct_tape/data_berning/contents/*.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/archive/**/*.json")
-fpaths = glob.glob("data/tmp_parse.json")
-
+#fpaths = glob.glob("data/tmp_parse.json")
+#fpaths = glob.glob("/home/storage/corenlp_parse/lidgaard/**/*.json")
+fpaths = glob.glob("/home/storage/corenlp_parse/v2/de/lidgaard/**/*.json")
+#fpaths = glob.glob("/home/storage/corenlp_parse/v2/en/berning/*.json")
 
 n_threads = 32
-
+source = "lidgaard"
 
 with multiprocessing.Pool(n_threads) as p:
-    docs = p.map(obtain_candidates, fpaths)
+    foo = partial(obtain_candidates, 
+            span0 = "TAXA",  # 0-th is for "TAXA"
+            span1 = "INTERVALNAME", 
+            source = source)
+    docs = p.map(foo, fpaths)
 
 ## Remove "None" entries
 docs = list(filter(None.__ne__, docs))

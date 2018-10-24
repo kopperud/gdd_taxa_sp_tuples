@@ -55,7 +55,7 @@ def consecutive(data, stepsize=1):
     res = np.array(res)
     return(res)
 
-def tokens_nonconsecutive_ner(word, ners, label = "TAXA"):  
+def tokens_nonconsecutive_ner(word, ners, label):  
     tagged = [i for i,(w, ner) in enumerate(zip(word, ners)) if ner == label]
 
     ner_label_indices = consecutive(tagged)
@@ -82,7 +82,7 @@ class smart_dict(dict):
     def __missing__(self, key):
         return(key)
 
-def obtain_candidates(fpath, span = "INTERVALNAME", archive = True):
+def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = None):
     if ".json" in fpath:  
         l = []
 
@@ -108,15 +108,20 @@ def obtain_candidates(fpath, span = "INTERVALNAME", archive = True):
         for k, v in df.iteritems():
             df[k] = [feature_to_list(x, k) for x in v]
 
-    candidates = parse_candidate(df, span = span)
+    candidates = parse_candidate(df, span0 = span0, span1 = span1)
 
     ## Establish document ID. Specific for each source, not for GDD
     if candidates:
         if ".json" in fpath:
             # if berning
-            docid = ntpath.basename(fpath.replace(".json",""))
+            if source == "berning":
+                docid = ntpath.basename(fpath.replace(".json",""))
             # if archive
-            #docid = fpath.split("/")[-2]
+            elif source == "archive":
+                docid = fpath.split("/")[-2]
+            # if lidgaard
+            elif source == "lidgaard" or source == "btk_lg":
+                docid = '/'.join(fpath.split("/")[-2:])
             # Assign document ids
 
             for item in candidates:
@@ -128,28 +133,29 @@ def obtain_candidates(fpath, span = "INTERVALNAME", archive = True):
 
 
 
-def parse_candidate(df, span = "INTERVALNAME"):
+def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
     candidates = []
     
     for i, row in df.iterrows():
-        if len({"TAXA", span}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
-            taxa = tokens_nonconsecutive_ner(row["word"], row["ners"], "TAXA")
-            intervals = tokens_nonconsecutive_ner(row["word"], row["ners"], span)
+        if len({span0, span1}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
+            taxa = tokens_nonconsecutive_ner(row["word"], row["ners"], span0)
+            intervals = tokens_nonconsecutive_ner(row["word"], row["ners"], span1)
 
             #Deabbreviate genus names
-            is_taxa = np.array(row["ners"]) == "TAXA"
-            is_abbrev = np.array([True if pattern_genus.match(x) else False for x in row["word"]])
+            if span0 == "TAXA":
+                is_taxa = np.array(row["ners"]) == span0
+                is_abbrev = np.array([True if pattern_genus.match(x) else False for x in row["word"]])
 
-            abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
+                abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
 
-            if abbrevs:
-                d = smart_dict()
-                for abbrev in abbrevs:
-                    d[abbrev] = replace_abbrev(abbrev, df, i, 8)
-                
-                for entity in taxa:
-                    for k, v in d.items():
-                        entity["TAXA"] = [v if x == k else x for x in entity["TAXA"]]
+                if abbrevs:
+                    d = smart_dict()
+                    for abbrev in abbrevs:
+                        d[abbrev] = replace_abbrev(abbrev, df, i, 8)
+                    
+                    for entity in taxa:
+                        for k, v in d.items():
+                            entity[span0] = [v if x == k else x for x in entity[span0]]
             
             ## set up dependency tree in networkx
             G = nx.Graph()
@@ -184,8 +190,8 @@ def parse_candidate(df, span = "INTERVALNAME"):
 
                 candidate["sdp"] = sdp
 
-                candidate["TAXA"] = p[0]
-                candidate[span] = p[1]
+                candidate[span0] = p[0]
+                candidate[span1] = p[1]
                 candidate["sentid"] = int(i)
                 candidate["sentence"] = row["word"]
                 candidate["docid"] = row["docid"].replace(".json", "")
