@@ -18,8 +18,9 @@ fpaths = glob.glob("/home/storage/corenlp_parse/v2/en/lidgaard/**/*.json")
 n_threads = 32
 source = "lidgaard"
 
-<<<<<<< HEAD
-if false:
+
+total = len(fpaths)
+if False:
     with multiprocessing.Pool(n_threads) as p:
         foo = partial(obtain_candidates, 
 	        span0 = "TAXA",  # 0-th is for "TAXA"

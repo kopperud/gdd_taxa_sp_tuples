@@ -255,6 +255,27 @@ def obtain_taxa(fpath, source = None):
 
     candidates = parse_taxa(df)
 
+    ## Establish document ID. Specific for each source, not for GDD
+    if candidates:
+        if ".json" in fpath:
+            # if berning
+            if source == "berning":
+                docid = ntpath.basename(fpath.replace(".json",""))
+            # if archive
+            elif source == "archive":
+                docid = fpath.split("/")[-2]
+            # if lidgaard
+            elif source == "lidgaard" or source == "btk_lg":
+                docid = '/'.join(fpath.split("/")[-2:])
+            # Assign document ids
+
+            for item in candidates:
+                item["docid"] = docid
+
+        return(candidates)
+    else:
+        return(None)
+
 
 def parse_taxa(df):
     candidates = []
