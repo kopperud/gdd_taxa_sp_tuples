@@ -222,5 +222,77 @@ def replace_abbrev(abbrev, df, index, count):
     return(replacement)
 
 
+def obtain_taxa(fpath, source = None):
+    if ".json" in fpath:  
+        l = []
+
+        with open(fpath, "r") as f:
+            raw = f.read()
+            if not raw or "java.util" in raw:
+                return(None)
+            else:
+                s = json.loads(raw)
+        if not s:
+            return(None)
+        sentences = s[0]["sentences"]
+	
+
+        for i, sentence in enumerate(sentences):
+            l.append(sentence_to_dict(i, sentence, fpath))
+
+        df = pd.DataFrame(l)
+
+    else:
+        df = pd.read_csv(fpath, header=None, names = header, sep ="\t")
+
+        for k, v in df.iteritems():
+            df[k] = [feature_to_list(x, k) for x in v]
+
+    candidates = parse_taxa(df)
+
+
+def parse_taxa(df):
+    candidates = []
+    abbreviations = []
+    span0 = "TAXA"
+    
+    for i, row in df.iterrows():
+        if len({span0}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
+            taxa = tokens_nonconsecutive_ner(row["word"], row["ners"], span0)
+
+            #Deabbreviate genus names
+            if span0 == "TAXA":
+                is_taxa = np.array(row["ners"]) == span0
+                is_abbrev = np.array([True if pattern_genus.match(x) else False for x in row["word"]])
+
+                abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
+
+                if abbrevs:
+                    abbrev_info = smart_dict()
+                    for abbrev in abbrevs:
+                        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, 15)
+
+                    d = abbrev_info.copy()
+                    abbreviations.append(abbrev_info) 
+
+                    for k, v in d.items():
+                        d[k] = v[1]
+
+                    for entity in taxa:
+                        for k, v in d.items():
+                            entity[span0] = [v if x == k else x for x in entity[span0]]
+
+
+                candidate = dict()
+                candidate[span0] = taxa
+                candidate["sentid"] = int(i)
+                candidate["sentence"] = row["word"]
+                candidate["docid"] = row["docid"].replace(".json", "")
+
+                if abbrevs:
+                    candidate["abbreviations"] = abbrev_info
+
+                candidates.append(candidate)
+    return(candidates)
 
 

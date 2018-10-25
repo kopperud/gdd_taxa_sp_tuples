@@ -18,11 +18,17 @@ fpaths = glob.glob("data/berning/*.json")
 n_threads = 32
 source = "lidgaard"
 
-with multiprocessing.Pool(n_threads) as p:
-    foo = partial(obtain_candidates, 
-            span0 = "TAXA",  # 0-th is for "TAXA"
-            span1 = "INTERVALNAME", 
-            source = source)
+if false:
+    with multiprocessing.Pool(n_threads) as p:
+        foo = partial(obtain_candidates, 
+	        span0 = "TAXA",  # 0-th is for "TAXA"
+	        span1 = "INTERVALNAME", 
+	        source = source)
+        docs = p.map(foo, fpaths)
+else:
+    with multiprocessing.Pool(n_threads) as p:
+    foo = partial(obtain_taxa, 
+        source = source)
     docs = p.map(foo, fpaths)
 
 ## Remove "None" entries
