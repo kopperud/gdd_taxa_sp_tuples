@@ -18,20 +18,17 @@ fpaths = glob.glob("data/berning/*.json")
 n_threads = 32
 source = "berning"
 
+spans = ["TAXA", "INTERVALNAME"]
+#spans = "TAXA"
 
 total = len(fpaths)
-if False:
-    with multiprocessing.Pool(n_threads) as p:
-        foo = partial(obtain_candidates, 
-	        span0 = "TAXA",  # 0-th is for "TAXA"
-	        span1 = "INTERVALNAME", 
-	        source = source)
-        docs = p.map(foo, fpaths)
-else:
-    with multiprocessing.Pool(n_threads) as p:
-    	foo = partial(obtain_taxa, 
-        	source = source)
-    	docs = p.map(foo, fpaths)
+
+with multiprocessing.Pool(n_threads) as p:
+    foo = partial(obtain_candidates,
+        spans = spans, 
+        source = source)
+    docs = tqdm.tqdm(list(p.imap(foo, fpaths)), total = total)
+
 
 ## Remove "None" entries
 docs = list(filter(None.__ne__, docs))

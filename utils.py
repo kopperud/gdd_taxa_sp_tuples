@@ -82,7 +82,7 @@ class smart_dict(dict):
     def __missing__(self, key):
         return(key)
 
-def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = None):
+def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
     if ".json" in fpath:  
         l = []
 
@@ -108,7 +108,12 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
         for k, v in df.iteritems():
             df[k] = [feature_to_list(x, k) for x in v]
 
-    candidates = parse_candidate(df, span0 = span0, span1 = span1)
+    if spans == "TAXA":
+        candidates = parse_taxa(df)
+    elif len(spans) == 2:
+        candidates = parse_candidate(df, span0 = spans[0], span1 = spans[1])
+    else:
+        raise Exception("Spans must either be \"TAXA\" or a list of length 2.")
 
     ## Establish document ID. Specific for each source, not for GDD
     if candidates:
@@ -196,11 +201,33 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 candidates.append(candidate)
     return(candidates)
 
+
+def deabbreviate(abbrevs, taxa, df, i, n_sentences = 15, span = "TAXA"):
+    abbrev_info = smart_dict()
+    for abbrev in abbrevs:
+        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, n_sentences)
+
+    d = abbrev_info.copy() 
+
+    for k, v in d.items():
+        d[k] = v[1]
+
+    for entity in taxa:
+        for k, v in d.items():
+            entity[span] = [v if x == k else x for x in entity[span]]
+
+    return(taxa, abbrev_info)
+
+
 def replace_abbrev(abbrev, df, index, count):
     previous_words = df.iloc[index]["word"]
     prev_ner = df.iloc[index]["ners"]    
 
-    genus_toks = [x for i, x in enumerate(previous_words) if x.startswith(abbrev[0]) and len(x) > 2 and prev_ner[i] == "TAXA"]
+    genus_toks = []
+    for i, x in enumerate(previous_words):
+        if x.startswith(abbrev[0]) and len(x) > 2 and prev_ner[i] == "TAXA":
+            genus_toks.append(x)
+#    genus_toks = [x for i, x in enumerate(previous_words) if x.startswith(abbrev[0]) and len(x) > 2 and prev_ner[i] == "TAXA"]
 
     if genus_toks:
         replacement = genus_toks[-1]
@@ -212,56 +239,6 @@ def replace_abbrev(abbrev, df, index, count):
             replacement = abbrev
  
     return(count, replacement)
-
-
-def obtain_taxa(fpath, source = None):
-    if ".json" in fpath:  
-        l = []
-
-        with open(fpath, "r") as f:
-            raw = f.read()
-            if not raw or "java.util" in raw:
-                return(None)
-            else:
-                s = json.loads(raw)
-        if not s:
-            return(None)
-        sentences = s[0]["sentences"]
-	
-
-        for i, sentence in enumerate(sentences):
-            l.append(sentence_to_dict(i, sentence, fpath))
-
-        df = pd.DataFrame(l)
-
-    else:
-        df = pd.read_csv(fpath, header=None, names = header, sep ="\t")
-
-        for k, v in df.iteritems():
-            df[k] = [feature_to_list(x, k) for x in v]
-
-    candidates = parse_taxa(df)
-
-    ## Establish document ID. Specific for each source, not for GDD
-    if candidates:
-        if ".json" in fpath:
-            # if berning
-            if source == "berning":
-                docid = ntpath.basename(fpath.replace(".json",""))
-            # if archive
-            elif source == "archive":
-                docid = fpath.split("/")[-2]
-            # if lidgaard
-            elif source == "lidgaard" or source == "btk_lg":
-                docid = '/'.join(fpath.split("/")[-2:])
-            # Assign document ids
-
-            for item in candidates:
-                item["docid"] = docid
-
-        return(candidates)
-    else:
-        return(None)
 
 
 def parse_taxa(df):
@@ -292,20 +269,6 @@ def parse_taxa(df):
             candidates.append(candidate)
     return(candidates)
 
-def deabbreviate(abbrevs, taxa, df, i, n_sentences = 15, span = "TAXA"):
-    abbrev_info = smart_dict()
-    for abbrev in abbrevs:
-        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, n_sentences)
 
-    d = abbrev_info.copy() 
-
-    for k, v in d.items():
-        d[k] = v[1]
-
-    for entity in taxa:
-        for k, v in d.items():
-            entity[span] = [v if x == k else x for x in entity[span]]
-
-    return(taxa, abbrev_info)
 
 
