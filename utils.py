@@ -108,9 +108,7 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
         for k, v in df.iteritems():
             df[k] = [feature_to_list(x, k) for x in v]
 
-    res = parse_candidate(df, span0 = span0, span1 = span1)
-    candidates = res["candidates"]
-    abbreviations = res["abbreviations"]
+    candidates = parse_candidate(df, span0 = span0, span1 = span1)
 
     ## Establish document ID. Specific for each source, not for GDD
     if candidates:
@@ -129,7 +127,7 @@ def obtain_candidates(fpath, span0 = "TAXA", span1 = "INTERVALNAME", source = No
             for item in candidates:
                 item["docid"] = docid
 
-        return(res)
+        return(candidates)
     else:
         return(None)
 
@@ -152,11 +150,15 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
 
                 if abbrevs:
-                    d = smart_dict()
+                    abbrev_info = smart_dict()
                     for abbrev in abbrevs:
-                        d[abbrev] = replace_abbrev(abbrev, df, i, 8)
-                    
-                    abbreviations.append(d) 
+                        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, 15)
+
+                    d = abbrev_info.copy()
+                    abbreviations.append(abbrev_info) 
+
+                    for k, v in d.items():
+                        d[k] = v[1]
 
                     for entity in taxa:
                         for k, v in d.items():
@@ -201,10 +203,11 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 candidate["sentence"] = row["word"]
                 candidate["docid"] = row["docid"].replace(".json", "")
 
+                if abbrevs:
+                    candidate["abbreviations"] = abbrev_info
+
                 candidates.append(candidate)
-    res = {"candidates": candidates,
-           "abbreviations": abbreviations}
-    return(res)
+    return(candidates)
 
 def replace_abbrev(abbrev, df, index, count):
     previous_words = df.iloc[index]["word"]
@@ -216,10 +219,12 @@ def replace_abbrev(abbrev, df, index, count):
         replacement = genus_toks[-1]
     else:
         if int(count) > 0:
-            replacement = replace_abbrev(abbrev, df, index-1, count -1)
+            count -= 1
+            count, replacement = replace_abbrev(abbrev, df, index-1, count)
         else:
             replacement = abbrev
-    return(replacement)
+ 
+    return(count, replacement)
 
 
 def obtain_taxa(fpath, source = None):
