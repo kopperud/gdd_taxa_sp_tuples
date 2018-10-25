@@ -150,28 +150,15 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
 
                 if abbrevs:
-                    abbrev_info = smart_dict()
-                    for abbrev in abbrevs:
-                        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, 15)
+                    taxa, abbrev_info = deabbreviate(abbrevs, taxa, df, i, 15, span = "TAXA")
 
-                    d = abbrev_info.copy()
-                    abbreviations.append(abbrev_info) 
-
-                    for k, v in d.items():
-                        d[k] = v[1]
-
-                    for entity in taxa:
-                        for k, v in d.items():
-                            entity[span0] = [v if x == k else x for x in entity[span0]]
 
             ## set up dependency tree in networkx
             G = nx.Graph()
 
             dep = row["dep_parents"]
-#            nodes = [x+1 for x in range(len(dep))]
             nodes = row["wordidx"]
             parents = [int(x) for x in dep]
-#            edges = zip(parents, nodes)
             edges = zip(nodes, parents)
 
             G.add_edges_from(edges)
@@ -279,46 +266,46 @@ def obtain_taxa(fpath, source = None):
 
 def parse_taxa(df):
     candidates = []
-    abbreviations = []
     span0 = "TAXA"
-    
+
     for i, row in df.iterrows():
-        if len({span0}.intersection(set(row["ners"]))) > 1 and len(row["word"]) < 70:
+        if span0 in row["ners"] and len(row["word"]) < 70:
             taxa = tokens_nonconsecutive_ner(row["word"], row["ners"], span0)
 
-            #Deabbreviate genus names
-            if span0 == "TAXA":
-                is_taxa = np.array(row["ners"]) == span0
-                is_abbrev = np.array([True if pattern_genus.match(x) else False for x in row["word"]])
+            is_taxa = np.array(row["ners"]) == span0
+            is_abbrev = np.array([True if pattern_genus.match(x) else False for x in row["word"]])
 
-                abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
+            abbrevs = set(np.array(row["word"])[is_taxa & is_abbrev])
 
-                if abbrevs:
-                    abbrev_info = smart_dict()
-                    for abbrev in abbrevs:
-                        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, 15)
+            if abbrevs:
+                taxa, abbrev_info = deabbreviate(abbrevs, taxa, df, i, 15, span = "TAXA")
 
-                    d = abbrev_info.copy()
-                    abbreviations.append(abbrev_info) 
+            candidate = dict()
+            candidate[span0] = taxa
+            candidate["sentid"] = int(i)
+            candidate["sentence"] = row["word"]
+            candidate["docid"] = row["docid"].replace(".json", "")
 
-                    for k, v in d.items():
-                        d[k] = v[1]
+            if abbrevs:
+                candidate["abbreviations"] = abbrev_info
 
-                    for entity in taxa:
-                        for k, v in d.items():
-                            entity[span0] = [v if x == k else x for x in entity[span0]]
-
-
-                candidate = dict()
-                candidate[span0] = taxa
-                candidate["sentid"] = int(i)
-                candidate["sentence"] = row["word"]
-                candidate["docid"] = row["docid"].replace(".json", "")
-
-                if abbrevs:
-                    candidate["abbreviations"] = abbrev_info
-
-                candidates.append(candidate)
+            candidates.append(candidate)
     return(candidates)
+
+def deabbreviate(abbrevs, taxa, df, i, n_sentences = 15, span = "TAXA"):
+    abbrev_info = smart_dict()
+    for abbrev in abbrevs:
+        abbrev_info[abbrev] = replace_abbrev(abbrev, df, i, n_sentences)
+
+    d = abbrev_info.copy() 
+
+    for k, v in d.items():
+        d[k] = v[1]
+
+    for entity in taxa:
+        for k, v in d.items():
+            entity[span] = [v if x == k else x for x in entity[span]]
+
+    return(taxa, abbrev_info)
 
 
