@@ -124,8 +124,8 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
             # if archive
             elif source == "archive":
                 docid = fpath.split("/")[-2]
-            # if lidgaard
-            elif source == "lidgaard" or source == "btk_lg":
+            # if lidgard
+            elif source == "lidgard" or source == "btk_lg":
                 docid = '/'.join(fpath.split("/")[-2:])
             # Assign document ids
 
