@@ -3,3 +3,4 @@ __pycache__
 *.swp
 output/*
 !output/.gitkeep
+data/nikulina_colony_morphogenesis_2002.json

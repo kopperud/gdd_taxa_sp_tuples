@@ -119,7 +119,7 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
     if candidates:
         if ".json" in fpath:
             # if berning
-            if source == "berning":
+            if source == "berning" or source == "elsevier" or source == "dummy":
                 docid = ntpath.basename(fpath.replace(".json",""))
             # if archive
             elif source == "archive":
