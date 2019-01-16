@@ -10,6 +10,8 @@ import ntpath
 
 #pattern = re.compile(',\s*(?=([^\"]*"[^\"]*\")*[^\"]*$)')
 
+## Constants
+loc_tags = {"LOCATION", "COUNTRY", "STATE_OR_PROVINCE", "CITY"}
 
 # In[801]:
 
@@ -40,6 +42,15 @@ def sentence_to_dict(i, sentence, fpath):
     row["wordidx"] = [x["index"] for x in sentence["tokens"]]
     row["lemmas"] = [x["lemma"] for x in sentence["tokens"]]
 
+    ## change ner tag for commas surrounded by location
+    if len(row["word"]) > 2:
+        m = row["word"][1:-1]
+        comma_surrounded = [False] + [row["ners"][i] in loc_tags and w == "," and row["ners"][i+2] in loc_tags for i,w in enumerate(m)] + [False]
+
+        idx = np.where(comma_surrounded)[0]
+        for i in idx:
+            row["ners"][i] = "LOCATION"
+
     row["docid"] = ntpath.basename(fpath)
     row["sentid"] = i+1
     
@@ -55,8 +66,12 @@ def consecutive(data, stepsize=1):
     res = np.array(res)
     return(res)
 
-def tokens_nonconsecutive_ner(word, ners, label):  
-    tagged = [i for i,(w, ner) in enumerate(zip(word, ners)) if ner == label]
+def tokens_nonconsecutive_ner(word, ners, label): 
+
+    if label == "LOCATION":
+        tagged = [i for i,(w, ner) in enumerate(zip(word, ners)) if ner in loc_tags]
+    else:
+        tagged = [i for i,(w, ner) in enumerate(zip(word, ners)) if ner == label]
 
     ner_label_indices = consecutive(tagged)
     

@@ -9,11 +9,12 @@ from functools import partial
 fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/elsevier/*.json")
 fpaths = glob.glob("data/*.json")
 
+fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/lidgard/**/*.json")
 
 n_threads = 32
-source = "dummy"
+source = "lidgard"
 
-spans = ["TAXA", "INTERVALNAME"]
+spans = ["TAXA", "LOCATION"]
 #spans = "INTERVALNAME"
 
 total = len(fpaths)
