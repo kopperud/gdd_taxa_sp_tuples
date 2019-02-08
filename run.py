@@ -7,15 +7,18 @@ from functools import partial
 
 #fpaths = glob.glob("/home/storage/corenlp_parse/v3/de/lidgard/**/*.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/elsevier/*.json")
-fpaths = glob.glob("data/*.json")
+#fpaths = glob.glob("data/*.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/lidgard/**/*.json")
 
+fpaths = glob.glob("/path/to/*.csv") ## Or json
+
+if not fpaths:
+    raise Exception("Please put /path/to/dir/*.csv in file \"run.py\"")
+
 n_threads = 32
-#source = "lidgard"
-source = "dummy"
+source = "gdd"
 
 spans = ["TAXA", "LOCATION"]
-#spans = "INTERVALNAME"
 
 total = len(fpaths)
 
