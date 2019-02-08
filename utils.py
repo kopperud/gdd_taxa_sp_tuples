@@ -123,10 +123,21 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
         for k, v in df.iteritems():
             df[k] = [feature_to_list(x, k) for x in v]
 
+    # Count INTERVALNAME and STRAT
+    n = {}
+    n["STRAT"] = 0
+    n["INTERVALNAME"] = 0
+
+    for i, row in df.iterrows():
+        n["STRAT"] += len([x for x in row["ners"] if x == "STRAT"])
+        n["INTERVALNAME"] += len([x for x in row["ners"] if x == "INTERVALNAME"])
+    
+
+
     if spans == "TAXA":
         candidates = parse_taxa(df)
     elif len(spans) == 2:
-        candidates = parse_candidate(df, span0 = spans[0], span1 = spans[1])
+        candidates = parse_candidate(df, span0 = spans[0], span1 = spans[1], n = n)
     else:
         raise Exception("Spans must either be \"TAXA\" or a list of length 2.")
 
@@ -153,7 +164,7 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
 
 
 
-def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
+def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME", n = None):
     candidates = []
     abbreviations = []
     
@@ -203,6 +214,9 @@ def parse_candidate(df, span0 = "TAXA", span1 = "INTERVALNAME"):
                 candidate = dict()
 
                 candidate["sdp"] = sdp
+
+                ## Count number of NERs tagged in entire document
+                candidate["n"] = n
 
                 candidate[span0] = p[0]
                 candidate[span1] = p[1]

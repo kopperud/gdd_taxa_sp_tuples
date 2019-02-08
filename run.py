@@ -6,13 +6,13 @@ from functools import partial
 
 
 #fpaths = glob.glob("/home/storage/corenlp_parse/v3/de/lidgard/**/*.json")
-fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/elsevier/*.json")
+#fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/elsevier/*.json")
 fpaths = glob.glob("data/*.json")
-
-fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/lidgard/**/*.json")
+#fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/lidgard/**/*.json")
 
 n_threads = 32
-source = "lidgard"
+#source = "lidgard"
+source = "dummy"
 
 spans = ["TAXA", "LOCATION"]
 #spans = "INTERVALNAME"
