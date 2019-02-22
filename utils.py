@@ -109,7 +109,11 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
                 s = json.loads(raw)
         if not s:
             return(None)
-        sentences = s[0]["sentences"]
+
+        if source == "gdd":
+            sentences = s["sentences"]
+        else:
+            sentences = s[0]["sentences"]
 	
 
         for i, sentence in enumerate(sentences):
@@ -153,6 +157,9 @@ def obtain_candidates(fpath, spans = ["TAXA", "INTERVALNAME"], source = None):
             # if lidgard
             elif source == "lidgard" or source == "btk_lg":
                 docid = '/'.join(fpath.split("/")[-2:])
+            elif source == "gdd":
+                #docid = fpath.split("/")[-1].split("_")[0]
+                docid = s["docId"].split("_")[0]
             # Assign document ids
 
             for item in candidates:

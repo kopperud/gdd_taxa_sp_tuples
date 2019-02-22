@@ -10,10 +10,11 @@ from functools import partial
 #fpaths = glob.glob("data/*.json")
 #fpaths = glob.glob("/home/storage/corenlp_parse/v3/en/lidgard/**/*.json")
 
-fpaths = glob.glob("/path/to/*.csv") ## Or json
+#fpaths = glob.glob("/path/to/*.csv") ## Or json
+fpaths = glob.glob("/path/to/*.json") 
 
 if not fpaths:
-    raise Exception("Please put /path/to/dir/*.csv in file \"run.py\"")
+    raise Exception("Please edit /path/to/*.json in file \"run.py\"")
 
 n_threads = 32
 source = "gdd"
